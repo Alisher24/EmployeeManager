@@ -22,6 +22,9 @@ public static class EmployeeEndpoints
         group.MapPost("/", CreateAsync)
             .WithName("CreateEmployee");
 
+        group.MapPut("/{id:guid}", UpdateAsync)
+            .WithName("UpdateEmployee");
+
         return app;
     }
 
@@ -61,5 +64,21 @@ public static class EmployeeEndpoints
         var employee = result.Value;
 
         return TypedResults.CreatedAtRoute(employee, GetEmployeeByIdRouteName, new { id = employee.Id });
+    }
+
+    private static async Task<Results<Ok<EmployeeDto>, ProblemHttpResult>> UpdateAsync(
+        Guid id,
+        UpdateEmployeeRequest request,
+        EmployeeService employeeService,
+        CancellationToken cancellationToken)
+    {
+        var result = await employeeService.UpdateAsync(id, request, cancellationToken);
+
+        if (!result.IsSuccess)
+        {
+            return result.Error.ToProblem();
+        }
+
+        return TypedResults.Ok(result.Value);
     }
 }
