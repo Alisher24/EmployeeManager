@@ -1,5 +1,8 @@
-﻿using EmployeeManager.Infrastructure.Data;
+﻿using EmployeeManager.Application.Common;
+using EmployeeManager.Application.Employees;
+using EmployeeManager.Infrastructure.Data;
 using EmployeeManager.Infrastructure.Data.Interceptors;
+using EmployeeManager.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +30,9 @@ public static class DependencyInjection
         services.AddDbContext<AppDbContext>((serviceProvider, options) => options
             .UseSqlServer(connectionString, sqlServer => sqlServer.EnableRetryOnFailure())
             .AddInterceptors(serviceProvider.GetRequiredService<AuditableEntityInterceptor>()));
+
+        services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<AppDbContext>());
+        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
         return services;
     }
