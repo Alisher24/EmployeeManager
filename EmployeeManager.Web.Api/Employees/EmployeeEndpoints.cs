@@ -1,10 +1,13 @@
 using EmployeeManager.Application.Employees;
+using EmployeeManager.Web.Api.Common;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace EmployeeManager.Web.Api.Employees;
 
 public static class EmployeeEndpoints
 {
+    private const string GetEmployeeByIdRouteName = "GetEmployeeById";
+
     public static IEndpointRouteBuilder MapEmployeeEndpoints(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("/api/employees")
@@ -14,7 +17,10 @@ public static class EmployeeEndpoints
             .WithName("GetEmployees");
 
         group.MapGet("/{id:guid}", GetByIdAsync)
-            .WithName("GetEmployeeById");
+            .WithName(GetEmployeeByIdRouteName);
+
+        group.MapPost("/", CreateAsync)
+            .WithName("CreateEmployee");
 
         return app;
     }
@@ -38,5 +44,22 @@ public static class EmployeeEndpoints
         return employee is null
             ? TypedResults.NotFound()
             : TypedResults.Ok(employee);
+    }
+
+    private static async Task<Results<CreatedAtRoute<EmployeeDto>, ProblemHttpResult>> CreateAsync(
+        CreateEmployeeRequest request,
+        EmployeeService employeeService,
+        CancellationToken cancellationToken)
+    {
+        var result = await employeeService.CreateAsync(request, cancellationToken);
+
+        if (!result.IsSuccess)
+        {
+            return result.Error.ToProblem();
+        }
+
+        var employee = result.Value;
+
+        return TypedResults.CreatedAtRoute(employee, GetEmployeeByIdRouteName, new { id = employee.Id });
     }
 }
