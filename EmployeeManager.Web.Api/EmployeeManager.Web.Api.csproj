@@ -5,11 +5,19 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>EmployeeManager.Web.Api</RootNamespace>
+        <UserSecretsId>c3fbfc4f-22a3-4534-a6ef-a75d6d9d8a15</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\EmployeeManager.Application\EmployeeManager.Application.csproj" />
       <ProjectReference Include="..\EmployeeManager.Infrastructure\EmployeeManager.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.12">
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
     </ItemGroup>
 
 </Project>

@@ -1,6 +1,8 @@
-﻿namespace EmployeeManager.Domain.Employees;
+﻿using EmployeeManager.Domain.Common;
 
-public sealed class Employee
+namespace EmployeeManager.Domain.Employees;
+
+public sealed class Employee : IAuditableEntity
 {
     public Guid Id { get; private set; }
 
