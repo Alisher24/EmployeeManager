@@ -4,10 +4,11 @@
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>EmployeeManager.Application</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\EmplyeeManager.Domain\EmplyeeManager.Domain.csproj" />
+      <ProjectReference Include="..\EmployeeManager.Domain\EmployeeManager.Domain.csproj" />
     </ItemGroup>
 
 </Project>

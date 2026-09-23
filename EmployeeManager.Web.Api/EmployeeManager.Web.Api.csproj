@@ -4,11 +4,12 @@
         <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>EmployeeManager.Web.Api</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\EmplyeeManager.Application\EmplyeeManager.Application.csproj" />
-      <ProjectReference Include="..\EmplyeeManager.Infrastructure\EmplyeeManager.Infrastructure.csproj" />
+      <ProjectReference Include="..\Employee.Application\Employee.Application.csproj" />
+      <ProjectReference Include="..\EmployeeManager.Infrastructure\EmployeeManager.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
