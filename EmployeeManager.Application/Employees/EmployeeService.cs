@@ -19,6 +19,13 @@ public sealed class EmployeeService(IEmployeeRepository employeeRepository, IUni
         return employee?.ToDto();
     }
 
+    public async Task<EmployeeStatsDto> GetStatsAsync(CancellationToken cancellationToken = default)
+    {
+        var stats = await employeeRepository.GetStatsAsync(cancellationToken);
+
+        return stats.ToDto();
+    }
+
     public async Task<Result<EmployeeDto>> CreateAsync(
         CreateEmployeeRequest request,
         CancellationToken cancellationToken = default)
