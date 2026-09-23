@@ -23,10 +23,13 @@ public static class EmployeeEndpoints
             .WithName(GetEmployeeByIdRouteName);
 
         group.MapPost("/", CreateAsync)
-            .WithName("CreateEmployee");
+            .WithName("CreateEmployee")
+            .ProducesProblem(StatusCodes.Status409Conflict);
 
         group.MapPut("/{id:guid}", UpdateAsync)
-            .WithName("UpdateEmployee");
+            .WithName("UpdateEmployee")
+            .ProducesProblem(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status409Conflict);
 
         return app;
     }
