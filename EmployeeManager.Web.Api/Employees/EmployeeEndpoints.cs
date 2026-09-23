@@ -13,6 +13,9 @@ public static class EmployeeEndpoints
         group.MapGet("/", GetAllAsync)
             .WithName("GetEmployees");
 
+        group.MapGet("/{id:guid}", GetByIdAsync)
+            .WithName("GetEmployeeById");
+
         return app;
     }
 
@@ -23,5 +26,17 @@ public static class EmployeeEndpoints
         var employees = await employeeService.GetAllAsync(cancellationToken);
 
         return TypedResults.Ok(employees);
+    }
+
+    private static async Task<Results<Ok<EmployeeDto>, NotFound>> GetByIdAsync(
+        Guid id,
+        EmployeeService employeeService,
+        CancellationToken cancellationToken)
+    {
+        var employee = await employeeService.GetByIdAsync(id, cancellationToken);
+
+        return employee is null
+            ? TypedResults.NotFound()
+            : TypedResults.Ok(employee);
     }
 }

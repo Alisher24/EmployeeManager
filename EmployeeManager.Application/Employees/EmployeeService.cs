@@ -8,4 +8,11 @@ public sealed class EmployeeService(IEmployeeRepository employeeRepository)
 
         return employees.Select(employee => employee.ToDto()).ToList();
     }
+
+    public async Task<EmployeeDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var employee = await employeeRepository.GetByIdAsync(id, cancellationToken);
+
+        return employee?.ToDto();
+    }
 }
