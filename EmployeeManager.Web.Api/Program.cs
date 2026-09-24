@@ -38,4 +38,6 @@ app.UseCors();
 
 app.MapEmployeeEndpoints();
 
-app.Run();
+await app.Services.ApplyMigrationsAsync();
+
+await app.RunAsync();
