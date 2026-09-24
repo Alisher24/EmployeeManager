@@ -24,10 +24,14 @@ public static class EmployeeEndpoints
 
         group.MapPost("/", CreateAsync)
             .WithName("CreateEmployee")
+            .AddEndpointFilter<ValidationFilter<EmployeeRequest>>()
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status409Conflict);
 
         group.MapPut("/{id:guid}", UpdateAsync)
             .WithName("UpdateEmployee")
+            .AddEndpointFilter<ValidationFilter<EmployeeRequest>>()
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status404NotFound)
             .ProducesProblem(StatusCodes.Status409Conflict);
 
