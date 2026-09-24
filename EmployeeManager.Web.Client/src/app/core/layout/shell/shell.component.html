@@ -1,0 +1,41 @@
+<mat-toolbar class="toolbar">
+	@if (isMobile()) {
+		<button aria-label="Toggle menu" mat-icon-button type="button" (click)="sidenav.toggle()">
+			<mat-icon>menu</mat-icon>
+		</button>
+	}
+	<span class="brand">Employee Manager</span>
+</mat-toolbar>
+
+<mat-sidenav-container class="container">
+	<mat-sidenav
+		#sidenav
+		class="sidenav"
+		[mode]="isMobile() ? 'over' : 'side'"
+		[opened]="!isMobile()"
+	>
+		<mat-nav-list class="nav">
+			@for (item of navItems; track item.path) {
+				<a
+					#link="routerLinkActive"
+					ariaCurrentWhenActive="page"
+					mat-list-item
+					routerLinkActive
+					[activated]="link.isActive"
+					[routerLink]="item.path"
+					[routerLinkActiveOptions]="{ exact: true }"
+					(click)="closeIfMobile(sidenav)"
+				>
+					<mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+					<span matListItemTitle>{{ item.label }}</span>
+				</a>
+			}
+		</mat-nav-list>
+	</mat-sidenav>
+
+	<mat-sidenav-content>
+		<main class="content">
+			<router-outlet />
+		</main>
+	</mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,57 @@
+@use '@angular/material' as mat;
+@use 'breakpoints' as bp;
+@use 'variables' as v;
+
+:host {
+	display: flex;
+	flex-direction: column;
+	height: 100dvh;
+}
+
+.toolbar {
+	@include mat.toolbar-overrides(
+		(
+			container-background-color: var(--mat-sys-primary),
+			container-text-color: var(--mat-sys-on-primary),
+		)
+	);
+	@include mat.icon-button-overrides(
+		(
+			icon-color: var(--mat-sys-on-primary),
+			state-layer-color: var(--mat-sys-on-primary),
+			ripple-color: color-mix(
+					in srgb,
+					var(--mat-sys-on-primary)
+						calc(var(--mat-sys-pressed-state-layer-opacity) * 100%),
+					transparent
+				),
+		)
+	);
+}
+
+.container {
+	flex: 1;
+}
+
+.sidenav {
+	@include mat.sidenav-overrides(
+		(
+			container-width: v.$sidenav-width,
+		)
+	);
+}
+
+.nav {
+	display: flex;
+	flex-direction: column;
+	gap: v.$space-sm;
+	padding: v.$space-sm;
+}
+
+.content {
+	padding: v.$space-lg;
+
+	@include bp.down(md) {
+		padding: v.$space-md;
+	}
+}
