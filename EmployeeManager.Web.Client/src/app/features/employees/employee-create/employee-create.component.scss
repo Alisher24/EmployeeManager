@@ -1,3 +1,5 @@
+@use 'variables' as v;
+
 .card {
-	max-width: 960px;
+	max-width: v.$form-max-width;
 }

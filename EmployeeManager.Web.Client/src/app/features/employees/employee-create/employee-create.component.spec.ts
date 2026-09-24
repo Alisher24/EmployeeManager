@@ -60,8 +60,11 @@ describe('EmployeeCreateComponent', () => {
 		httpTesting.verify();
 	});
 
-	function saveButton(): HTMLButtonElement {
-		return fixture.nativeElement.querySelector('button[type="submit"]');
+	function isShowingProgress(): boolean {
+		const saveButton: HTMLButtonElement =
+			fixture.nativeElement.querySelector('button[type="submit"]');
+
+		return saveButton.querySelector('mat-spinner') !== null;
 	}
 
 	it('should create the employee, confirm it and reset the form', async () => {
@@ -76,11 +79,11 @@ describe('EmployeeCreateComponent', () => {
 		expect(form.reset).toHaveBeenCalledOnce();
 	});
 
-	it('should block Save until the request completes', async () => {
+	it('should show progress on Save until the request completes', async () => {
 		form.saved.emit(request);
 		fixture.detectChanges();
 
-		expect(saveButton().disabled).toBe(true);
+		expect(isShowingProgress()).toBe(true);
 
 		httpTesting
 			.expectOne(EMPLOYEES_URL)
@@ -88,7 +91,7 @@ describe('EmployeeCreateComponent', () => {
 		await fixture.whenStable();
 		fixture.detectChanges();
 
-		expect(saveButton().disabled).toBe(false);
+		expect(isShowingProgress()).toBe(false);
 	});
 
 	it('should keep the entered data when saving fails', async () => {

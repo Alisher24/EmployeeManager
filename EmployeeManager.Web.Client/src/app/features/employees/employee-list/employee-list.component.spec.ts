@@ -227,6 +227,25 @@ describe('EmployeeListComponent', () => {
 		expect(await getColumn('city')).toEqual(['Oxford']);
 	});
 
+	it('should keep the table and show progress while reloading', async () => {
+		const updated: Employee = { ...jane, city: 'Oxford' };
+		closeDialogWith(updated);
+		await load([jane]);
+
+		rows()[0].click();
+
+		const reload = await vi.waitFor(() => httpTesting.expectOne(EMPLOYEES_URL));
+		fixture.detectChanges();
+
+		expect(host.querySelector('mat-progress-bar')).not.toBeNull();
+		expect(rows()).toHaveLength(1);
+
+		reload.flush([updated]);
+		await fixture.whenStable();
+
+		expect(host.querySelector('mat-progress-bar')).toBeNull();
+	});
+
 	it('should say that editing was cancelled', async () => {
 		closeDialogWith(undefined);
 		await load([jane]);

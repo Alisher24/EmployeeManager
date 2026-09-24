@@ -51,7 +51,7 @@ body {
 .employee-edit-dialog {
 	@include mat.dialog-overrides(
 		(
-			container-max-width: 720px,
+			container-max-width: v.$dialog-max-width,
 		)
 	);
 

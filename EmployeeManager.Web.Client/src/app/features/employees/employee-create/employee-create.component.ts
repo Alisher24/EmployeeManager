@@ -27,7 +27,6 @@ export class EmployeeCreateComponent {
 			this.notifications.success('Employee saved.');
 			this.form().reset();
 		} catch {
-
 		} finally {
 			this.saving.set(false);
 		}

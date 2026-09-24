@@ -16,6 +16,7 @@ import {
 	MatFormFieldDefaultOptions,
 } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { formatDateOnly, parseDateOnly } from '../../../shared/date-only';
 import { EMPLOYEE_CONSTRAINTS as limits } from '../data/employee.constraints';
@@ -43,6 +44,7 @@ function phoneValidator(control: AbstractControl<string>): ValidationErrors | nu
 		MatButtonToggleModule,
 		MatDatepickerModule,
 		MatInputModule,
+		MatProgressSpinnerModule,
 		MatRadioModule,
 		ReactiveFormsModule,
 	],
@@ -106,11 +108,16 @@ export class EmployeeFormComponent implements OnInit {
 	ngOnInit(): void {
 		this.form.reset(this.initialValue());
 	}
+
 	reset(): void {
 		this.formDirective().resetForm(this.initialValue());
 	}
 
 	protected submit(): void {
+		if (this.saving()) {
+			return;
+		}
+
 		const { dateOfBirth, gender, address2, ...value } = this.form.getRawValue();
 
 		if (this.form.invalid || !dateOfBirth || !gender) {

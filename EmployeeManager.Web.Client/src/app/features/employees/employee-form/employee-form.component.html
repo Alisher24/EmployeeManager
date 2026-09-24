@@ -116,6 +116,9 @@
 		<button mat-stroked-button type="button" [disabled]="saving()" (click)="cancelled.emit()">
 			Cancel
 		</button>
-		<button mat-flat-button type="submit" [disabled]="saving()">Save</button>
+		<button mat-flat-button type="submit" [showProgress]="saving()">
+			Save
+			<mat-spinner aria-label="Saving" diameter="20" progressIndicator tabindex="" />
+		</button>
 	</div>
 </form>

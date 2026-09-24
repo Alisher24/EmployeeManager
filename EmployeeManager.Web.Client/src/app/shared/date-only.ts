@@ -5,6 +5,7 @@ export function formatDateOnly(date: Date): string {
 
 	return `${year}-${month}-${day}`;
 }
+
 export function parseDateOnly(value: string): Date {
 	const [year, month, day] = value.split('-').map(Number);
 

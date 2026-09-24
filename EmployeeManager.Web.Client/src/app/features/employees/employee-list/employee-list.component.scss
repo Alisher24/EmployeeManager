@@ -1,7 +1,15 @@
+@use 'breakpoints' as bp;
 @use 'variables' as v;
 
 .card {
+	position: relative;
 	overflow: hidden;
+}
+
+.progress {
+	position: absolute;
+	inset: 0 0 auto;
+	z-index: 1;
 }
 
 .table-container {
@@ -10,6 +18,20 @@
 
 .table {
 	white-space: nowrap;
+}
+
+.mat-column-phone,
+.mat-column-city,
+.mat-column-gender {
+	@include bp.down(lg) {
+		display: none;
+	}
+}
+
+.mat-column-email {
+	@include bp.down(sm) {
+		display: none;
+	}
 }
 
 .row {
@@ -28,7 +50,7 @@
 
 .status {
 	display: inline-block;
-	padding: 4px 12px;
+	padding: v.$space-xs v.$space-sm;
 	border-radius: var(--mat-sys-corner-full);
 	background-color: var(--mat-sys-surface-container-highest);
 	color: var(--mat-sys-on-surface-variant);

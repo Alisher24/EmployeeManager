@@ -70,8 +70,11 @@ describe('EmployeeEditDialogComponent', () => {
 		httpTesting.verify();
 	});
 
-	function saveButton(): HTMLButtonElement {
-		return fixture.nativeElement.querySelector('button[type="submit"]');
+	function isShowingProgress(): boolean {
+		const saveButton: HTMLButtonElement =
+			fixture.nativeElement.querySelector('button[type="submit"]');
+
+		return saveButton.querySelector('mat-spinner') !== null;
 	}
 
 	function pressEscape(): void {
@@ -113,12 +116,12 @@ describe('EmployeeEditDialogComponent', () => {
 		expect(dialogRef.close).not.toHaveBeenCalled();
 	});
 
-	it('should block Save and Escape until the request completes', async () => {
+	it('should show progress and ignore Escape until the request completes', async () => {
 		form.saved.emit(changes);
 		fixture.detectChanges();
 		pressEscape();
 
-		expect(saveButton().disabled).toBe(true);
+		expect(isShowingProgress()).toBe(true);
 		expect(dialogRef.close).not.toHaveBeenCalled();
 
 		httpTesting
@@ -127,7 +130,7 @@ describe('EmployeeEditDialogComponent', () => {
 		await fixture.whenStable();
 		fixture.detectChanges();
 
-		expect(saveButton().disabled).toBe(false);
+		expect(isShowingProgress()).toBe(false);
 	});
 
 	it('should close without a result on Cancel', () => {

@@ -167,13 +167,22 @@ describe('EmployeeFormComponent', () => {
 		expect(saved).not.toHaveBeenCalled();
 	});
 
-	it('should disable the buttons while saving', async () => {
+	it('should show progress on Save and disable Cancel while saving', async () => {
 		fixture.componentRef.setInput('saving', true);
 
 		const save = await loader.getHarness(MatButtonHarness.with({ text: 'Save' }));
 		const cancel = await loader.getHarness(MatButtonHarness.with({ text: 'Cancel' }));
 
-		expect(await save.isDisabled()).toBe(true);
+		expect(await save.isShowingProgress()).toBe(true);
 		expect(await cancel.isDisabled()).toBe(true);
+	});
+
+	it('should not emit again while saving', async () => {
+		fixture.componentRef.setInput('employee', employee);
+		fixture.componentRef.setInput('saving', true);
+
+		await clickButton('Save');
+
+		expect(saved).not.toHaveBeenCalled();
 	});
 });

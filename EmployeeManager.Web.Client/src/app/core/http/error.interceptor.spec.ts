@@ -107,6 +107,19 @@ describe('errorInterceptor', () => {
 		);
 	});
 
+	it('should explain a missing resource instead of the generic title', async () => {
+		await expectRethrown((req) =>
+			req.flush(
+				{ status: 404, title: 'Not Found' },
+				{ status: 404, statusText: 'Not Found' },
+			),
+		);
+
+		expect(notifications.error).toHaveBeenCalledExactlyOnceWith(
+			'The requested data was not found.',
+		);
+	});
+
 	it('should explain a network failure', async () => {
 		await expectRethrown((req) => req.error(new ProgressEvent('error')));
 

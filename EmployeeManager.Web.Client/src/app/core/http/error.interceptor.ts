@@ -10,6 +10,7 @@ interface ProblemDetails {
 }
 
 const NETWORK_ERROR_MESSAGE = 'Cannot reach the server. Check your connection and try again.';
+const NOT_FOUND_MESSAGE = 'The requested data was not found.';
 const FALLBACK_MESSAGE = 'Something went wrong. Please try again.';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
@@ -38,5 +39,13 @@ function getErrorMessage(error: HttpErrorResponse): string {
 		return validationErrors.join(' ');
 	}
 
-	return problem?.detail || problem?.title || FALLBACK_MESSAGE;
+	if (problem?.detail) {
+		return problem.detail;
+	}
+
+	if (error.status === 404) {
+		return NOT_FOUND_MESSAGE;
+	}
+
+	return problem?.title || FALLBACK_MESSAGE;
 }

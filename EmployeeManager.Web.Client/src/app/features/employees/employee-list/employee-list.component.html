@@ -3,6 +3,14 @@
 @if (employees.hasValue()) {
 	@if (employees.value().length > 0) {
 		<mat-card appearance="outlined" class="card">
+			@if (employees.isLoading()) {
+				<mat-progress-bar
+					aria-label="Loading employees"
+					class="progress"
+					mode="indeterminate"
+				/>
+			}
+
 			<div class="table-container">
 				<table
 					class="table"

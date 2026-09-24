@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -21,6 +22,7 @@ import { EmployeeEditDialogComponent } from '../employee-edit-dialog/employee-ed
 		MatCardModule,
 		MatIconModule,
 		MatPaginatorModule,
+		MatProgressBarModule,
 		MatProgressSpinnerModule,
 		MatSortModule,
 		MatTableModule,

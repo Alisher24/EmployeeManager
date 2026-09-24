@@ -43,7 +43,6 @@ export class EmployeeEditDialogComponent {
 			const updated = await firstValueFrom(this.api.update(this.employee.id, request));
 			this.dialogRef.close(updated);
 		} catch {
-
 		} finally {
 			this.saving.set(false);
 		}
