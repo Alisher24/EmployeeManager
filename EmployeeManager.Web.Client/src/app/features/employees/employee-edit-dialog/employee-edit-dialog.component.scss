@@ -1,0 +1,7 @@
+@use 'breakpoints' as bp;
+
+.content {
+	@include bp.down(md) {
+		max-height: none;
+	}
+}

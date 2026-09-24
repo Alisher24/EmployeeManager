@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Edit Employee</h2>
+
+<mat-dialog-content class="content">
+	<app-employee-form
+		[employee]="employee"
+		[saving]="saving()"
+		(cancelled)="cancel()"
+		(saved)="save($event)"
+	/>
+</mat-dialog-content>

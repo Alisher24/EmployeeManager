@@ -1,1 +1,86 @@
 <h1 class="page-title">View Employees</h1>
+
+@if (employees.hasValue()) {
+	@if (employees.value().length > 0) {
+		<mat-card appearance="outlined" class="card">
+			<div class="table-container">
+				<table
+					class="table"
+					mat-table
+					matSort
+					[dataSource]="dataSource"
+					[trackBy]="trackById"
+				>
+					<ng-container matColumnDef="firstName">
+						<th *matHeaderCellDef mat-header-cell mat-sort-header>First name</th>
+						<td *matCellDef="let employee" mat-cell>{{ employee.firstName }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="lastName">
+						<th *matHeaderCellDef mat-header-cell mat-sort-header>Last name</th>
+						<td *matCellDef="let employee" mat-cell>{{ employee.lastName }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="email">
+						<th *matHeaderCellDef mat-header-cell mat-sort-header>Email</th>
+						<td *matCellDef="let employee" mat-cell>{{ employee.email }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="phone">
+						<th *matHeaderCellDef mat-header-cell mat-sort-header>Mobile</th>
+						<td *matCellDef="let employee" mat-cell>{{ employee.phone }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="city">
+						<th *matHeaderCellDef mat-header-cell mat-sort-header>City</th>
+						<td *matCellDef="let employee" mat-cell>{{ employee.city }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="gender">
+						<th *matHeaderCellDef mat-header-cell mat-sort-header>Gender</th>
+						<td *matCellDef="let employee" mat-cell>{{ employee.gender }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="isActive">
+						<th *matHeaderCellDef mat-header-cell mat-sort-header>Status</th>
+						<td *matCellDef="let employee" mat-cell>
+							<span class="status" [class.status-active]="employee.isActive">
+								{{ employee.isActive ? 'Active' : 'Inactive' }}
+							</span>
+						</td>
+					</ng-container>
+
+					<tr *matHeaderRowDef="columns" mat-header-row></tr>
+					<tr
+						*matRowDef="let employee; columns: columns"
+						class="row"
+						mat-row
+						tabindex="0"
+						(click)="edit(employee)"
+						(keydown.enter)="edit(employee)"
+					></tr>
+				</table>
+			</div>
+
+			<mat-paginator aria-label="Select page of employees" [pageSizeOptions]="[10, 25, 50]" />
+		</mat-card>
+	} @else {
+		<div class="message">
+			<p>No employees yet.</p>
+			<a mat-stroked-button routerLink="/employees/new">
+				<mat-icon>person_add</mat-icon>
+				Create Employee
+			</a>
+		</div>
+	}
+} @else if (employees.isLoading()) {
+	<mat-spinner aria-label="Loading employees" class="spinner" diameter="48" />
+} @else if (employees.error()) {
+	<div class="message">
+		<p>Couldn't load the employees.</p>
+		<button mat-stroked-button type="button" (click)="employees.reload()">
+			<mat-icon>refresh</mat-icon>
+			Try again
+		</button>
+	</div>
+}

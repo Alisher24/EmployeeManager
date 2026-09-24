@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use 'breakpoints' as bp;
 @use 'variables' as v;
 
 html {
@@ -45,4 +46,26 @@ body {
 			supporting-text-color: var(--mat-sys-on-error),
 		)
 	);
+}
+
+.employee-edit-dialog {
+	@include mat.dialog-overrides(
+		(
+			container-max-width: 720px,
+		)
+	);
+
+	width: 100%;
+
+	@include bp.down(md) {
+		@include mat.dialog-overrides(
+			(
+				container-max-width: 100vw,
+				container-small-max-width: 100vw,
+				container-shape: var(--mat-sys-corner-none),
+			)
+		);
+
+		height: 100%;
+	}
 }

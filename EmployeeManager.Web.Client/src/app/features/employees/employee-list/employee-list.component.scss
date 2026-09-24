@@ -1,0 +1,58 @@
+@use 'variables' as v;
+
+.card {
+	overflow: hidden;
+}
+
+.table-container {
+	overflow-x: auto;
+}
+
+.table {
+	white-space: nowrap;
+}
+
+.row {
+	cursor: pointer;
+
+	&:hover,
+	&:focus-visible {
+		background-color: var(--mat-sys-surface-container-high);
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--mat-sys-primary);
+		outline-offset: -2px;
+	}
+}
+
+.status {
+	display: inline-block;
+	padding: 4px 12px;
+	border-radius: var(--mat-sys-corner-full);
+	background-color: var(--mat-sys-surface-container-highest);
+	color: var(--mat-sys-on-surface-variant);
+	font: var(--mat-sys-label-large);
+}
+
+.status-active {
+	background-color: var(--mat-sys-primary-container);
+	color: var(--mat-sys-on-primary-container);
+}
+
+.spinner {
+	margin: v.$space-lg auto;
+}
+
+.message {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: v.$space-md;
+	padding: v.$space-lg;
+	color: var(--mat-sys-on-surface-variant);
+
+	p {
+		margin: 0;
+	}
+}
