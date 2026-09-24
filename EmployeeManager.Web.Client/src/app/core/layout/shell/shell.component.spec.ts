@@ -26,4 +26,22 @@ describe('ShellComponent', () => {
 			'/employees',
 		]);
 	});
+
+	it('should toggle the menu from the toolbar', async () => {
+		const toggle: HTMLButtonElement = fixture.nativeElement.querySelector(
+			'button[aria-label="Toggle menu"]',
+		);
+
+		expect(toggle.getAttribute('aria-expanded')).toBe('true');
+
+		toggle.click();
+		await fixture.whenStable();
+
+		expect(toggle.getAttribute('aria-expanded')).toBe('false');
+
+		toggle.click();
+		await fixture.whenStable();
+
+		expect(toggle.getAttribute('aria-expanded')).toBe('true');
+	});
 });

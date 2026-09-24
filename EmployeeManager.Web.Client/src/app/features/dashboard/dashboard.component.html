@@ -1,1 +1,25 @@
 <h1 class="page-title">Dashboard</h1>
+
+@if (stats.hasValue()) {
+	<div class="stats">
+		@for (card of cards; track card.key) {
+			<mat-card appearance="outlined">
+				<mat-card-content class="stat">
+					<span class="stat-label">{{ card.label }}</span>
+					<span class="stat-value">{{ stats.value()[card.key] }}</span>
+					<mat-icon class="stat-icon">{{ card.icon }}</mat-icon>
+				</mat-card-content>
+			</mat-card>
+		}
+	</div>
+} @else if (stats.isLoading()) {
+	<mat-spinner aria-label="Loading statistics" class="spinner" diameter="48" />
+} @else if (stats.error()) {
+	<div class="error">
+		<p>Couldn't load the statistics.</p>
+		<button mat-stroked-button type="button" (click)="stats.reload()">
+			<mat-icon>refresh</mat-icon>
+			Try again
+		</button>
+	</div>
+}

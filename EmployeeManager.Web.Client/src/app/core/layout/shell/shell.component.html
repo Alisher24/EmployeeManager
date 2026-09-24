@@ -1,9 +1,13 @@
 <mat-toolbar class="toolbar">
-	@if (isMobile()) {
-		<button aria-label="Toggle menu" mat-icon-button type="button" (click)="sidenav.toggle()">
-			<mat-icon>menu</mat-icon>
-		</button>
-	}
+	<button
+		aria-label="Toggle menu"
+		mat-icon-button
+		type="button"
+		[attr.aria-expanded]="sidenav.opened"
+		(click)="sidenav.toggle()"
+	>
+		<mat-icon>menu</mat-icon>
+	</button>
 	<span class="brand">Employee Manager</span>
 </mat-toolbar>
 

@@ -27,6 +27,8 @@
 				),
 		)
 	);
+
+	gap: 8px;
 }
 
 .container {
@@ -37,8 +39,17 @@
 	@include mat.sidenav-overrides(
 		(
 			container-width: v.$sidenav-width,
+			container-background-color: var(--mat-sys-surface-container),
 		)
 	);
+
+	@include bp.up(md) {
+		@include mat.sidenav-overrides(
+			(
+				container-shape: var(--mat-sys-corner-none),
+			)
+		);
+	}
 }
 
 .nav {
@@ -46,6 +57,7 @@
 	flex-direction: column;
 	gap: v.$space-sm;
 	padding: v.$space-sm;
+	padding-top: v.$space-md;
 }
 
 .content {
