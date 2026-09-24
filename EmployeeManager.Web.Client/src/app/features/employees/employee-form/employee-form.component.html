@@ -30,21 +30,25 @@
 				<mat-error>{{ errorMessage(form.controls.dateOfBirth) }}</mat-error>
 			</mat-form-field>
 
-			<fieldset class="choice">
-				<legend class="choice-label">Gender<span aria-hidden="true">*</span></legend>
+			<div class="choice">
+				@let genderInvalid = form.controls.gender.touched && form.controls.gender.invalid;
 				<mat-button-toggle-group
+					aria-label="Gender"
 					aria-required="true"
 					class="gender"
 					formControlName="gender"
 					hideSingleSelectionIndicator
+					[class.gender-invalid]="genderInvalid"
 				>
 					<mat-button-toggle value="Male">Male</mat-button-toggle>
 					<mat-button-toggle value="Female">Female</mat-button-toggle>
 				</mat-button-toggle-group>
-				@if (form.controls.gender.touched && form.controls.gender.invalid) {
+				@if (genderInvalid) {
 					<mat-error>{{ errorMessage(form.controls.gender) }}</mat-error>
+				} @else {
+					<span aria-hidden="true" class="choice-label">Gender*</span>
 				}
-			</fieldset>
+			</div>
 		</div>
 	</fieldset>
 
