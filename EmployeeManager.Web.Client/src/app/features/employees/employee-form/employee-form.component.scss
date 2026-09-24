@@ -1,0 +1,73 @@
+@use '@angular/material' as mat;
+@use 'breakpoints' as bp;
+@use 'variables' as v;
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: v.$space-md;
+}
+
+.section,
+.choice {
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.section-title {
+	margin-bottom: v.$space-md;
+	padding: 0;
+	font: var(--mat-sys-title-medium);
+	color: var(--mat-sys-on-surface);
+}
+
+.fields {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	align-items: start;
+	column-gap: v.$space-md;
+	row-gap: v.$space-sm;
+
+	@include bp.up(sm) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.choice {
+	margin-bottom: v.$space-md;
+}
+
+.choice-label {
+	margin-bottom: v.$space-sm;
+	padding: 0;
+	font: var(--mat-sys-body-small);
+	color: var(--mat-sys-on-surface-variant);
+}
+
+.gender {
+	@include mat.button-toggle-overrides(
+		(
+			selected-state-background-color: var(--mat-sys-primary),
+			selected-state-text-color: var(--mat-sys-on-primary),
+		)
+	);
+}
+
+.choice mat-error {
+	margin-top: v.$space-sm;
+	font: var(--mat-sys-body-small);
+}
+
+.status {
+	display: flex;
+	flex-wrap: wrap;
+	gap: v.$space-md;
+}
+
+.actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: v.$space-sm;
+}

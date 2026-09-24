@@ -1,0 +1,121 @@
+<form class="form" [formGroup]="form" (ngSubmit)="submit()">
+	<fieldset class="section">
+		<legend class="section-title">Personal details</legend>
+
+		<div class="fields">
+			<mat-form-field>
+				<mat-label>First name</mat-label>
+				<input formControlName="firstName" matInput />
+				<mat-error>{{ errorMessage(form.controls.firstName) }}</mat-error>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>Last name</mat-label>
+				<input formControlName="lastName" matInput />
+				<mat-error>{{ errorMessage(form.controls.lastName) }}</mat-error>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>Date of birth</mat-label>
+				<input
+					formControlName="dateOfBirth"
+					matInput
+					[matDatepicker]="dateOfBirthPicker"
+					[max]="maxDateOfBirth"
+					[min]="minDateOfBirth"
+				/>
+				<mat-hint>MM/DD/YYYY</mat-hint>
+				<mat-datepicker-toggle matIconSuffix [for]="dateOfBirthPicker" />
+				<mat-datepicker #dateOfBirthPicker startView="multi-year" />
+				<mat-error>{{ errorMessage(form.controls.dateOfBirth) }}</mat-error>
+			</mat-form-field>
+
+			<fieldset class="choice">
+				<legend class="choice-label">Gender<span aria-hidden="true">*</span></legend>
+				<mat-button-toggle-group
+					aria-required="true"
+					class="gender"
+					formControlName="gender"
+					hideSingleSelectionIndicator
+				>
+					<mat-button-toggle value="Male">Male</mat-button-toggle>
+					<mat-button-toggle value="Female">Female</mat-button-toggle>
+				</mat-button-toggle-group>
+				@if (form.controls.gender.touched && form.controls.gender.invalid) {
+					<mat-error>{{ errorMessage(form.controls.gender) }}</mat-error>
+				}
+			</fieldset>
+		</div>
+	</fieldset>
+
+	<fieldset class="section">
+		<legend class="section-title">Address</legend>
+
+		<div class="fields">
+			<mat-form-field>
+				<mat-label>Address line 1</mat-label>
+				<input formControlName="address1" matInput />
+				<mat-error>{{ errorMessage(form.controls.address1) }}</mat-error>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>Address line 2</mat-label>
+				<input formControlName="address2" matInput />
+				<mat-error>{{ errorMessage(form.controls.address2) }}</mat-error>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>City</mat-label>
+				<input formControlName="city" matInput />
+				<mat-error>{{ errorMessage(form.controls.city) }}</mat-error>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>Postal code</mat-label>
+				<input formControlName="postalCode" matInput />
+				<mat-error>{{ errorMessage(form.controls.postalCode) }}</mat-error>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>Country</mat-label>
+				<input formControlName="country" matInput />
+				<mat-error>{{ errorMessage(form.controls.country) }}</mat-error>
+			</mat-form-field>
+		</div>
+	</fieldset>
+
+	<fieldset class="section">
+		<legend class="section-title">Contact</legend>
+
+		<div class="fields">
+			<mat-form-field>
+				<mat-label>Email</mat-label>
+				<input formControlName="email" matInput type="email" />
+				<mat-error>{{ errorMessage(form.controls.email) }}</mat-error>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>Mobile</mat-label>
+				<input formControlName="phone" matInput type="tel" />
+				<mat-hint>For example, +1 555 123 4567</mat-hint>
+				<mat-error>{{ errorMessage(form.controls.phone) }}</mat-error>
+			</mat-form-field>
+		</div>
+	</fieldset>
+
+	<fieldset class="section">
+		<legend class="section-title">Status</legend>
+
+		<mat-radio-group class="status" formControlName="isActive">
+			<mat-radio-button [value]="true">Active</mat-radio-button>
+			<mat-radio-button [value]="false">Inactive</mat-radio-button>
+		</mat-radio-group>
+	</fieldset>
+
+	<div class="actions">
+		<button mat-stroked-button type="button" [disabled]="saving()" (click)="cancelled.emit()">
+			Cancel
+		</button>
+		<button mat-flat-button type="submit" [disabled]="saving()">Save</button>
+	</div>
+</form>

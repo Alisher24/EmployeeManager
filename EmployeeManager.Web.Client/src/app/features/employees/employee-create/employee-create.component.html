@@ -1,1 +1,7 @@
 <h1 class="page-title">Create Employee</h1>
+
+<mat-card appearance="outlined" class="card">
+	<mat-card-content>
+		<app-employee-form [saving]="saving()" (cancelled)="cancel()" (saved)="save($event)" />
+	</mat-card-content>
+</mat-card>
