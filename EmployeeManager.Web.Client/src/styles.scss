@@ -28,3 +28,21 @@ body {
 	margin: 0 0 v.$space-lg;
 	font: var(--mat-sys-headline-small);
 }
+
+.notification-success {
+	@include mat.snack-bar-overrides(
+		(
+			container-color: var(--mat-sys-primary),
+			supporting-text-color: var(--mat-sys-on-primary),
+		)
+	);
+}
+
+.notification-error {
+	@include mat.snack-bar-overrides(
+		(
+			container-color: var(--mat-sys-error),
+			supporting-text-color: var(--mat-sys-on-error),
+		)
+	);
+}
